@@ -3,6 +3,7 @@ import customtkinter
 from tkinter import font
 from PIL import Image, ImageTk
 from tkinter import messagebox
+import os
 
 current_theme = "dark"  # Default theme is light
 
@@ -56,11 +57,21 @@ def reset_interface():
         user_input.clear()
         update_listbox()
    
-
+def save_tasks():
+     file_path = os.path.join(os.getcwd(), "tasks.txt")
+     with open("tasks.txt", "w") as file:
+        for task in user_input:
+            file.write(task + "\n")  # Add a newline character to separate tasks
+     messagebox.showinfo("Tasks Saved", "Tasks have been saved to 'tasks.txt'")
 
 def congratulations():
     messagebox.showinfo('Yayy!', 'Congratulations!! You have completed all tasks successfully!')
     reset_interface()
+    update_listbox()
+def sort_tasks():
+    sorted_tasks = sorted(user_input, key=lambda task: task[0].lower())
+    user_input.clear()
+    user_input.extend(sorted_tasks)
     update_listbox()
     
 customtkinter.set_appearance_mode("dark")
@@ -113,6 +124,13 @@ comp_button.configure(command=congratulations)
 
 addbutton.configure(command=addtaskbutton)
 delbutton.configure(command=deletetaskbutton)
+sort_button = customtkinter.CTkButton(master=bframe, width=200, height=35, text="Sort Tasks A-Z")
+sort_button.place(relx=0.5, rely=0.70, anchor=CENTER)
+sort_button.configure(command=sort_tasks)
+
+save_button = customtkinter.CTkButton(master=bframe, width=200, height=35, text="Save Tasks")
+save_button.place(relx=0.5, rely=0.85, anchor=CENTER)
+save_button.configure(command=save_tasks)
 
 user_input=[]
 apply_theme()
