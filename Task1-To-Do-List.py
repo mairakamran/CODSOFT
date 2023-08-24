@@ -2,6 +2,7 @@ from tkinter import *
 import customtkinter
 from tkinter import font
 from PIL import Image, ImageTk
+from tkinter import messagebox
 
 current_theme = "dark"  # Default theme is light
 
@@ -49,11 +50,18 @@ def update_listbox():
 
 
 def reset_interface():
-    listbox.delete(0,END)
-    for task in user_input:
-        user_input.remove(task)
+    confirm = messagebox.askyesno("Confirmation", "Do you wish to proceed?")
+    if confirm:
+        listbox.delete(0,END)
+        user_input.clear()
+        update_listbox()
+   
+
+
+def congratulations():
+    messagebox.showinfo('Yayy!', 'Congratulations!! You have completed all tasks successfully!')
+    reset_interface()
     update_listbox()
-    
     
 customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("blue")
@@ -62,7 +70,7 @@ root.geometry("650x860")
 root.title("To-Do List")
 
 my_image = customtkinter.CTkImage(
-                                  dark_image=Image.open("Capture.PNG"),
+                                  dark_image=Image.open("ToDoList.PNG"),
                                   size=(650, 220))
 image_label = customtkinter.CTkLabel(master=root, image=my_image,width=200,height=100)
 image_label.place(x=0, y=0)
@@ -99,6 +107,9 @@ reset_button = customtkinter.CTkButton(master=bframe, width=200, height=35, text
 reset_button.place(relx=0.5, rely=0.40, anchor=CENTER)
 reset_button.configure(command=reset_interface)
 
+comp_button= customtkinter.CTkButton(master=bframe, width=200, height=35, text="Mark All Tasks as complete")
+comp_button.place(relx=0.5, rely=0.55, anchor=CENTER)
+comp_button.configure(command=congratulations)
 
 addbutton.configure(command=addtaskbutton)
 delbutton.configure(command=deletetaskbutton)
@@ -106,4 +117,5 @@ delbutton.configure(command=deletetaskbutton)
 user_input=[]
 apply_theme()
 root.mainloop()
+
 
