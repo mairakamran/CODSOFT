@@ -81,7 +81,7 @@ root.geometry("650x860")
 root.title("To-Do List")
 
 my_image = customtkinter.CTkImage(
-                                  dark_image=Image.open("ToDoList.PNG"),
+                                  dark_image=Image.open("Task1ToDoList-img.PNG"),
                                   size=(650, 220))
 image_label = customtkinter.CTkLabel(master=root, image=my_image,width=200,height=100)
 image_label.place(x=0, y=0)
