@@ -36,8 +36,6 @@ include_letters_var = IntVar()
 include_digits_var = IntVar()
 include_special_var = IntVar()
 
-#chooseframe=Frame(root,width=200,height=200,background="blue")
-#chooseframe.place(x=50,y=180)
 passlabel = customtkinter.CTkLabel(master=root,text="Password Length: ",font=("serif",13))
 passlabel.place(x=10,y=10)
 passentry = customtkinter.CTkEntry(master=root,width=100)
